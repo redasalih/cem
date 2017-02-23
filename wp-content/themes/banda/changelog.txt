@@ -1,0 +1,193 @@
+Banda v1.2.4
+------------
+modified app/Lib/Core/GummHooks.php
+modified app/assets/js/gumm-admin.js
+modified app/assets/js/gumm-custom.js
+modified app/assets/js/gummbase.js
+modified app/assets/js/prettyPhoto/css/prettyPhoto.css
+modified app/assets/js/prettyPhoto/images/prettyPhoto/default/default_thumb.png
+modified app/assets/js/prettyPhoto/images/prettyPhoto/default/loader.gif
+modified app/assets/js/prettyPhoto/images/prettyPhoto/default/sprite.png
+modified app/assets/js/prettyPhoto/images/prettyPhoto/default/sprite_next.png
+modified app/assets/js/prettyPhoto/images/prettyPhoto/default/sprite_prev.png
+modified app/assets/js/prettyPhoto/images/prettyPhoto/default/sprite_x.png
+modified app/assets/js/prettyPhoto/images/prettyPhoto/default/sprite_y.png
+modified app/assets/js/prettyPhoto/js/jquery-1.4.4.min.js
+modified app/assets/js/prettyPhoto/js/jquery-1.6.1.min.js
+modified app/assets/js/prettyPhoto/js/jquery.prettyPhoto.js
+modified app/assets/js/prettyPhoto/xhr_response.html
+added app/assets/js/swiperjs/idangerous.swiper.min.js
+modified app/config/assets.config
+modified app/config/metaboxes.config
+modified app/config/options.config
+modified app/controllers/posts_controller.php
+modified app/libs/bootstrap.php
+modified app/libs/views/gumm_layout_element.php
+modified app/libs/views/helpers/form.php
+modified app/libs/views/helpers/js.php
+modified app/views/elements/footer/audio-player.gtp
+modified app/views/elements/header/event-countdown-timer.gtp
+modified app/views/elements/layout-components-single/single_event.php
+modified app/views/elements/layout-components/contact_form.php
+modified app/views/elements/layout-components/discography.php
+modified app/views/elements/layout-components/event.php
+modified app/views/elements/layout-components/gallery.php
+modified app/views/elements/layout-components/staff.php
+modified app/views/elements/layout-components/video.php
+modified app/widgets/gumm_events.php
+modified changelog.txt
+modified header.php
+modified style.css
+modified style.less
+------------
+Banda v1.2.3
+------------
+modified app/assets/css/style-admin.css
+modified app/assets/js/gumm-admin.js
+modified app/assets/js/gumm-custom.js
+modified app/assets/js/gumm-shortcodes-editor/gumm-admin-shortcodes.js
+modified app/libs/gumm_widget.php
+modified app/libs/views/gumm_layout_element.php
+modified style.css
+modified style.less
+------------
+Banda v1.2.2
+------------
+modified app/assets/css/style-admin.css
+modified app/assets/js/gumm-custom.js
+modified app/assets/js/gumm-shortcodes-editor/gumm-admin-shortcodes.js
+modified changelog.txt
+modified style.css
+modified style.less
+------------
+Banda v1.2.1
+------------
+modified app/assets/js/gumm-custom.js
+modified app/assets/js/gummbase.js
+modified app/config/options.config
+modified app/libs/gumm_widget.php
+modified app/views/elements/footer/audio-player.gtp
+modified app/widgets/gumm_events.php
+modified app/widgets/gumm_posts.php
+modified languages/Banda.mo
+modified languages/Banda.po
+modified languages/en_US.mo
+modified languages/en_US.po
+modified style.css
+modified style.less
+------------
+Banda v1.2.0
+------------
+modified app/assets/css/style-dimov.css
+modified app/assets/js/gummbase.js
+modified app/config/metaboxes.config
+modified app/controllers/layouts_controller.php
+modified app/libs/controller/components/gumm_template_builder.php
+modified app/libs/views/gumm_layout_element.php
+modified app/libs/views/helpers/media.php
+modified app/models/layout.php
+modified app/models/media.php
+modified app/views/elements/footer/audio-player.gtp
+modified app/views/elements/layout-components-single/single_event.php
+modified app/views/elements/layout-components/blog.php
+modified app/views/elements/layout-components/event.php
+modified app/views/elements/layout-components/heading.php
+modified app/views/layouts/admin_template_builder.gtp
+modified app/views/metaboxes/admin_layouts_schema.gtp
+modified changelog.txt
+modified functions.php
+modified single.php
+modified style.css
+modified style.less
+------------
+Banda v1.0.4
+------------
+modified app/assets/js/gummbase.js
+modified app/config/options.config
+modified app/libs/views/helpers/media.php
+modified app/models/post.php
+modified app/views/elements/footer/audio-player.gtp
+modified app/views/elements/layout-components/event.php
+modified app/views/elements/layout-components/sliders/banda_slider.php
+modified style.css
+modified style.less
+------------
+Banda v1.0.3
+------------
+modified app/assets/css/style-admin.css
+modified app/assets/js/gumm-custom.js
+modified app/assets/js/gummbase.js
+modified app/config/core.php
+modified app/config/data.config
+modified app/config/metaboxes.config
+modified app/config/options.config
+modified app/libs/views/gumm_layout_element.php
+modified app/libs/views/helpers/form.php
+modified app/libs/views/helpers/html.php
+modified app/libs/views/helpers/media.php
+modified app/models/post.php
+modified app/models/post_meta.php
+modified app/views/elements/google-map.gtp
+modified app/views/elements/layout-components-single/single_sharebox.php
+modified app/views/elements/layout-components-single/single_staff_vcard.php
+modified app/views/elements/layout-components/blog.php
+modified app/views/elements/layout-components/discography.php
+modified app/views/elements/layout-components/event.php
+modified app/views/elements/layout-components/rich_content.php
+modified app/views/elements/layout-components/sliders/banda_slider.php
+modified app/views/elements/layout-components/video.php
+modified app/views/elements/social-links.gtp
+modified app/widgets/gumm_social_networks.php
+added languages/Banda.mo
+added languages/Banda.po
+deleted languages/Nova.mo
+deleted languages/Nova.po
+modified languages/en_US.mo
+modified languages/en_US.po
+modified single.php
+modified style.css
+modified style.less
+------------
+Banda v1.0.2
+------------
+added app/Vendor/LessPhp/GummLessPhp.php
+modified app/assets/js/gumm-custom.js
+added app/assets/js/swiperjs/idangerous.swiper-2.4.js
+added app/assets/js/swiperjs/idangerous.swiper-2.4.min.js
+modified app/config/assets.config
+modified app/config/core.php
+modified app/config/metaboxes.config
+modified app/config/options.config
+modified app/libs/controller/components/media_handler.php
+modified app/libs/views/helpers/form.php
+modified app/libs/views/helpers/html.php
+modified app/libs/views/helpers/media.php
+modified app/views/elements/header/event-countdown-timer.gtp
+modified app/views/elements/layout-components/blog.php
+modified app/views/elements/layout-components/event.php
+modified app/views/elements/layout-components/sliders/banda_slider.php
+modified app/views/elements/layout-components/video.php
+modified page.php
+modified style.css
+modified style.less
+------------
+Banda v1.0.1
+------------
+modified app/assets/css/front-end-demo-panel.css
+modified app/assets/css/style-dimov.css
+modified app/assets/js/gumm-custom.js
+modified app/config/core.php
+modified app/config/metaboxes.config
+modified app/config/options.config
+modified app/libs/views/gumm_layout_element.php
+modified app/libs/views/helpers/html.php
+modified app/views/elements/front-end-preview-panel.gtp
+modified app/views/elements/header/info-bar.gtp
+modified app/views/elements/layout-components-single/single_staff_vcard.php
+modified footer.php
+modified style.css
+modified style.less
+------------
+Banda v1.0.0
+------------
+Initial commit.

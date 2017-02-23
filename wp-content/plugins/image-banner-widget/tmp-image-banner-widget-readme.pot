@@ -1,0 +1,136 @@
+msgid ""
+msgstr "MIME-Version: 1.0\n"
+
+#. Name.
+msgid "Image/Banner Widget"
+msgstr ""
+
+#. Short description.
+msgid "Add Images and Banners to your sidebars easily! Add title, link, alternative text, even set the link targets with one widget. No coding required!"
+msgstr ""
+
+#. Screenshot description.
+msgid "A snapshot of the widget form"
+msgstr ""
+
+#. Found in description list item.
+msgid "Just drag 'n drop the widget to your sidebar,"
+msgstr ""
+
+#. Found in description list item.
+msgid "Enter the image url and the link,"
+msgstr ""
+
+#. Found in description list item.
+msgid "Save &amp; Close."
+msgstr ""
+
+#. Found in description list item.
+msgid "It will fit to the container it is located in."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Add Images and Banners to your sidebars easily!"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Add images and image banners in your sidebars in just 3 steps:"
+msgstr ""
+
+#. Found in description paragraph.
+msgid ""
+"Visit <a href=\"http://shailan.com/wordpress/plugins/image-banner-widget/\">plugin page</a> for more information.\n"
+"Read <a href=\"http://shailan.com/wordpress/plugins/image-banner-widget/\">Image Banner Widget Documentation</a>."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "If you like this plugin, you might consider a <a href=\"http://shailan.com/donate\">donation</a>."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Download the widget and upload it to your server through <code>WP Admin &gt; Plugins &gt; Add New &gt; Upload</code>"
+msgstr ""
+
+#. Found in installation list item.
+msgid "After the upload is complete activate the plugin."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Go to Appearance &gt; Widgets page, drag and drop the widget to your sidebar."
+msgstr ""
+
+#. Found in installation list item.
+msgid "Fill in the blanks as needed, and done!"
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "You can search for <code>image-banner-widget</code> on your plugin search to install this plugin."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed image overlay"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Updated logos &amp; screenshot."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Some minor fixes"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Revised widget inputs"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Title is enabled for widget."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added image upload support."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed auto-checking checkboxes issue with the widget."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added target option for the link. "
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed not displaying on pages."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fixed category display options. "
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Made some coding fixes &amp; optimizations."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added Image Alt &amp; Title attributes for better SEO banners."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Made preview enhancements. Advanced options slide toggle enchancements."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Added autofit option to fit container width. For example, if widget is located on sidebar it will fit to sidebar width."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "First release."
+msgstr ""
+
+#. Found in faq header.
+msgid "Any questions?"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "You can ask your questions <a href=\"http://shailan.com/wordpress/plugins/image-banner-widget/\">here</a>"
+msgstr ""

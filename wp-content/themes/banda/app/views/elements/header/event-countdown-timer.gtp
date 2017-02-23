@@ -1,0 +1,70 @@
+<?php
+$args = array(
+    'post_type' => 'event',
+    'posts_per_page' => 1,
+    'meta_key' => GUMM_THEME_PREFIX . '_event_start_time',
+    'orderby' => GUMM_THEME_PREFIX . '_event_start_time',
+    'order' => 'ASC',
+    'meta_query' => array(
+        array(
+          'key' => GUMM_THEME_PREFIX . '_event_start_time',
+          'value' => date_i18n('Y-m-d H:i'),
+          'compare' => '>=',
+        ),
+    ),
+);
+if ($customEventId = (int) $this->Wp->getOption('header_countdown_event_id')) {
+	$args['p'] = $customEventId;
+}
+query_posts($args);
+if (!have_posts() && $customEventId && isset($args['p'])) {
+    wp_reset_query();
+    unset($args['p']);
+    query_posts($args);
+}
+if (have_posts()):
+    while(have_posts()):
+        the_post();
+        global $post;
+        
+        $startDate = $this->Wp->getPostMeta($post->ID, 'event_start_time');
+        $timeDiff = strtotime($startDate) - strtotime(date_i18n('Y-m-d H:i:s'));
+        
+        $days = floor($timeDiff / 86400);
+        $hrs  = floor(($timeDiff % 86400) / 3600);
+        $leftSeconds = $timeDiff % (60 * 60);
+        $mins = floor(($leftSeconds % 3600) / 60);
+        $secs = ($leftSeconds % 60);
+        
+?>
+<div id="header-countdown-timer" class="event-counter bbox-countdown-timer">
+    <div class="event-label"><?php _e('Next Event in:', 'gummfw'); ?></div>
+    <a class="event-more" href="<?php the_permalink(); ?>">
+        <span>+</span>
+        <span>+</span>
+    </a>
+    <div class="counter">
+      <div class="cell counter-days-wrapper" data-singular="<?php echo _e('day', 'gummfw'); ?>" data-plural="<?php _e('days', 'gummfw'); ?>">
+        <strong><?php echo $days; ?></strong>
+        <span><?php echo _n('day', 'days', $days, 'gummfw'); ?></span>
+      </div>
+      <div class="cell counter-hours-wrapper" data-singular="<?php echo _e('hour', 'gummfw'); ?>" data-plural="<?php _e('hours', 'gummfw'); ?>">
+        <strong><?php echo $hrs; ?></strong>
+        <span><?php echo _n('hour', 'hours', $hrs, 'gummfw'); ?></span>
+      </div>
+      <div class="cell counter-minutes-wrapper" data-singular="<?php echo _e('minute', 'gummfw'); ?>" data-plural="<?php _e('minutes', 'gummfw'); ?>">
+        <strong><?php echo $mins; ?></strong>
+        <span><?php echo _n('minute', 'minutes', $mins, 'gummfw'); ?></span>
+      </div>
+      <div class="cell counter-seconds-wrapper" data-singular="<?php echo _e('second', 'gummfw'); ?>" data-plural="<?php _e('seconds', 'gummfw'); ?>">
+        <strong><?php echo $secs; ?></strong>
+        <span><?php echo _n('second', 'seconds', $secs, 'gummfw'); ?></span>
+      </div>
+    </div>
+</div>
+<?php   
+    endwhile;
+endif;
+
+wp_reset_query();
+?>

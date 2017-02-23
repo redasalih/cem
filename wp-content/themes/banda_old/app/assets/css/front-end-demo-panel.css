@@ -1,0 +1,349 @@
+/* BEGIN demo panel */
+
+#demo-panel-button {
+  display: block;
+  position: fixed;
+  top: 90px;
+  right: 60px;
+  height: 60px;
+  width: 60px;
+  -webkit-box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  opacity: 0.3;
+  line-height: 60px;
+  text-align: center;
+  font-size: 24px;
+  color: #000;
+}
+
+#demo-panel-button:hover {
+  opacity: 1;
+}
+
+.demo-panel {
+  position: fixed;
+  z-index: 999;
+  top: 60px;
+  right: 60px;
+  -webkit-box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.5);
+  -o-box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 60px rgba(0, 0, 0, 0.5);
+  width: 200px;
+  padding: 30px;
+  background-color: #fff;
+  /* begin raw */
+
+  /* end raw */
+
+  /* BEGIN sinote overwrite */
+
+  /* END sinote overwrite */
+
+}
+.demo-panel .close-link {
+  display: block;
+  height: 21px;
+  width: 21px;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background-color: black;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  line-height: 21px;
+  text-align: center;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  background-image: url(images/close-button.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.demo-panel:hover .close-link {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+.demo-panel .bb-demo-label {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.42);
+  display: block;
+  font-weight: normal;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.demo-panel .switch-toggle {
+  display: block;
+  height: 30px;
+  /* Outline the toggles when the inputs are focused
+	 */
+
+  position: relative;
+  /* For callout panels in foundation
+	 */
+
+  padding: 0 !important;
+  /* Generate styles for the multiple states */
+}
+.demo-panel .switch-toggle * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.demo-panel .switch-toggle a {
+  display: block;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.demo-panel .switch-toggle label,
+.demo-panel .switch-toggle > span {
+  line-height: 30px;
+  vertical-align: middle;
+}
+.demo-panel .switch-toggle input:focus ~ a,
+.demo-panel .switch-toggle input:focus + label {
+  outline: 1px dotted #888888;
+}
+.demo-panel .switch-toggle input {
+  position: absolute;
+  opacity: 0;
+}
+.demo-panel .switch-toggle label {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 50%;
+  height: 100%;
+  margin: 0;
+  text-align: center;
+}
+.demo-panel .switch-toggle a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0;
+  z-index: 1;
+  width: 50%;
+  height: 100%;
+}
+.demo-panel .switch-toggle input:last-of-type:checked ~ a {
+  left: 50%;
+}
+.demo-panel .switch-toggle.switch-3 label,
+.demo-panel .switch-toggle.switch-3 a {
+  width: 33.33333%;
+}
+.demo-panel .switch-toggle.switch-3 input:checked:nth-of-type(2) ~ a {
+  left: 33.33333%;
+}
+.demo-panel .switch-toggle.switch-3 input:checked:last-of-type ~ a {
+  left: 66.66667%;
+}
+.demo-panel .switch-toggle.switch-4 label,
+.demo-panel .switch-toggle.switch-4 a {
+  width: 25%;
+}
+.demo-panel .switch-toggle.switch-4 input:checked:nth-of-type(2) ~ a {
+  left: 25%;
+}
+.demo-panel .switch-toggle.switch-4 input:checked:nth-of-type(3) ~ a {
+  left: 50%;
+}
+.demo-panel .switch-toggle.switch-4 input:checked:last-of-type ~ a {
+  left: 75%;
+}
+.demo-panel .switch-toggle.switch-5 label,
+.demo-panel .switch-toggle.switch-5 a {
+  width: 20%;
+}
+.demo-panel .switch-toggle.switch-5 input:checked:nth-of-type(2) ~ a {
+  left: 20%;
+}
+.demo-panel .switch-toggle.switch-5 input:checked:nth-of-type(3) ~ a {
+  left: 40%;
+}
+.demo-panel .switch-toggle.switch-5 input:checked:nth-of-type(4) ~ a {
+  left: 60%;
+}
+.demo-panel .switch-toggle.switch-5 input:checked:last-of-type ~ a {
+  left: 80%;
+}
+.demo-panel .switch-toggle label,
+.demo-panel .switch-toggle > span {
+  line-height: 28px;
+  vertical-align: middle;
+  cursor: pointer;
+  font-weight: lighter;
+  font-weight: normal;
+}
+.demo-panel .switch-toggle input:focus ~ a,
+.demo-panel .switch-toggle input:focus + label {
+  outline: none;
+}
+.demo-panel .switch-toggle a {
+  position: absolute;
+  top: 0;
+  left: 1px;
+  padding: 0;
+  z-index: 1;
+  width: 50%;
+  width: 119px;
+  width: 69px;
+  top: 1px;
+  /* custom fix */
+
+  -webkit-transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  -moz-transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  height: 28px;
+  background-color: white !important;
+  border: none !important;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  border-radius: 200px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26), 0px 0px 1px 1px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26), 0px 0px 1px 1px rgba(0, 0, 0, 0.26);
+  -o-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26), 0px 0px 1px 1px rgba(0, 0, 0, 0.26);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26), 0px 0px 1px 1px rgba(0, 0, 0, 0.26);
+  background: #ffffff;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(top, #ffffff 0%, #f0f0f0 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #f0f0f0));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top, #ffffff 0%, #f0f0f0 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top, #ffffff 0%, #f0f0f0 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top, #ffffff 0%, #f0f0f0 100%);
+  /* IE10+ */
+
+  background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f0f0f0', GradientType=0);
+  /* IE6-9 */
+
+}
+.demo-panel .well {
+  background-color: #63badf;
+  border: none;
+  padding: 1px;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  border-radius: 200px;
+  -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+  -o-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+  margin-bottom: 30px;
+}
+.demo-panel .bb-slider-input {
+  height: 3px;
+  display: block;
+  background-color: #63badf;
+  position: relative;
+  border: none;
+  padding: 1px;
+  margin-bottom: 30px;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  border-radius: 200px;
+  -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+  -o-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+}
+.demo-panel .bb-slider-input a {
+  position: absolute;
+  top: -5px;
+  display: block;
+  height: 13px;
+  width: 13px;
+  background-color: white !important;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  border-radius: 200px;
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26), 0px 0px 1px 1px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26), 0px 0px 1px 1px rgba(0, 0, 0, 0.26);
+  -o-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26), 0px 0px 1px 1px rgba(0, 0, 0, 0.26);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.26), 0px 0px 1px 1px rgba(0, 0, 0, 0.26);
+  background: #ffffff;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(top, #ffffff 0%, #f0f0f0 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #f0f0f0));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top, #ffffff 0%, #f0f0f0 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top, #ffffff 0%, #f0f0f0 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top, #ffffff 0%, #f0f0f0 100%);
+  /* IE10+ */
+
+  background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f0f0f0', GradientType=0);
+  /* IE6-9 */
+
+}
+.demo-panel .bb-color-option-container {
+  height: 60px;
+  display: block;
+  background-color: #26a95d;
+  position: relative;
+  border: none;
+  padding: 1px;
+  cursor: pointer;
+  -webkit-border-radius: 300px;
+  -moz-border-radius: 300px;
+  border-radius: 300px;
+  -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+  -o-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.26);
+}
+.demo-panel .bb-color-option-container span {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  width: 58px;
+  height: 58px;
+  line-height: 58px;
+  text-align: center;
+  background-color: #000000;
+  zoom: 1;
+  background-color: transparent\9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000, endColorstr=#33000000)";
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000, endColorstr=#33000000);
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  color: white;
+  font-size: 24px;
+  -webkit-box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.06);
+  -moz-box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.06);
+  -o-box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.06);
+}
+/* END demo panel */

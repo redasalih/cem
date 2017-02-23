@@ -1,0 +1,46 @@
+<div class="bluebox-admin">
+<?php
+
+
+if (!isset($mediaType)) {
+    $mediaType = 'default';
+}
+$mediaElement = 'media/admin_add';
+switch ($mediaType) {
+ case 'audio':
+    $mediaElement = 'media/admin_add_audio';
+    break;
+}
+
+$uploadedMedia = '';
+
+$uploadedMedia .= $this->Form->input('GummPostMeta', array(
+    'id' => '_gumm_attached_files.{n}',
+    'type' => 'hidden'
+), array(
+    'value' => ''
+));
+
+if ($post->Media) {
+    foreach ($post->Media as $attachmentMedia) {
+        $uploadedMedia .= View::renderElement($mediaElement, array(
+            'attachmentPost' => $attachmentMedia,
+        ), false);
+    }
+}
+
+echo $this->Media->mediaManager(array(
+    'name' => $metabox['id'],
+    'scriptData' => array(
+        'gummcontroller' => 'media',
+        'action' => 'gumm_add_to_library',
+        'gummadmin' => true,
+        'postId' => $post->ID,
+        // 'optionId' => $option['id'],
+        'auth_cookie' => $_COOKIE[AUTH_COOKIE],
+    ),
+    'content' => $uploadedMedia,
+    'type' => $mediaType,    
+));
+?>
+</div>

@@ -1,0 +1,38 @@
+<?php
+    if (!isset($latlng)) {
+        return;
+    }
+    if (!$latlng) {
+        $latlng = '42.13627,24.76276';
+    }
+    $latLngArr = explode(',', $latlng);
+    if (count($latLngArr) !== 2) return;
+    $lat = $latLngArr[0];
+    $lng = $latLngArr[1];
+    
+    $markerLat = false;
+    $markerLng = false;
+    if (isset($markerlatlng) && $markerlatlng) {
+        $markerLatLngArr = explode(',', $markerlatlng);
+        if (count($markerLatLngArr) === 2){
+            $markerLat = $markerLatLngArr[0];
+            $markerLng = $markerLatLngArr[1];
+        }
+    }
+    
+    $height = (isset($height) && $height) ? $height : 300;
+    
+    $scrollwheel = isset($enablescrollwheel) && $enablescrollwheel == 'true';
+    
+    $id = uniqid();
+?>
+
+<div id="google-map-<?php echo $id; ?>" class="gmap-container" style="height: <?php echo $height; ?>px;"
+    data-lat="<?php echo $lat; ?>"
+    data-lng="<?php echo $lng; ?>"
+    data-zoom="<?php echo isset($zoom) && $zoom ? $zoom : 'false'; ?>"
+    data-markerLat="<?php echo $markerLat; ?>"
+    data-markerLng="<?php echo $markerLng; ?>"
+    data-scrollwheel="<?php echo (string) $scrollwheel; ?>"
+
+></div>

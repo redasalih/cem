@@ -1,0 +1,25 @@
+body {
+  background: #5c426e;
+}
+
+	body .stats_container {
+	  margin: auto;
+	  background: #ffffff;
+	  padding: 20px;
+	  border-radius: 5px;
+	  margin-top: 100px;
+	  max-width: 960px;
+	  width: 100%;
+	}
+		body .stats_container table{
+		  border-color: #5c426e;
+		  border-radius: 5px;
+		}
+			body .stats_container table th{
+			  color: #000000;
+			}
+
+	h1{
+		color: #ffffff;
+		text-align: center;
+	}

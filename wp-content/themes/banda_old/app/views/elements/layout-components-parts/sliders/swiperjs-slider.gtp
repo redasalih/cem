@@ -1,0 +1,67 @@
+<?php
+$controlNav     = isset($controlNav) ? $controlNav : false;
+$directionNav   = isset($directionNav) ? $directionNav : true;
+
+$sliderDivAtts = array(
+    'class' => 'bb-slider-2 bluebox-slider',
+);
+if ($directionNav) {
+    $sliderDivAtts['data-direction-nav'] = '.arrow-links-wrap';
+}
+if ($controlNav) {
+    $sliderDivAtts['data-control-nav'] = '.slider-control-nav';
+}
+// d($media);
+?>
+<div<?php echo $this->Html->_constructTagAttributes($sliderDivAtts); ?>>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+        
+            <?php
+            $divSwiperSlideAtts = array(
+                'class' => 'swiper-slide'
+            );
+            $counter = 0;
+            foreach ($media as $mediaItem) {
+                $divSwiperSlideAtts['style'] = ($counter === 0) ? null : 'display:none;';
+                echo '<div' . $this->Html->_constructTagAttributes($divSwiperSlideAtts) . '>';
+                    echo $this->Media->display($mediaItem, $dimensions, array(
+                        'alt' => $mediaItem->post_title,
+                    ));
+                echo '</div>';
+        
+                $counter++;
+            }
+            ?>
+        </div>
+    </div>
+    <?php if ($controlNav): ?>
+    <div class="bullets-wrap">
+        <ul class="slider-control-nav">
+            <?php
+            $counter = 0;
+            foreach ($media as $mediaItem) {
+                $liAtts = array();
+                if ($counter === 0) {
+                    $liAtts['class'] = 'current';
+                }
+                echo '<li' . $this->Html->_constructTagAttributes($liAtts) . '><a href="#"></a></li>';
+                $counter++;
+            }
+            ?>
+        </ul>
+    </div>
+    <?php endif; ?>
+    <?php if ($directionNav): ?>
+    <div class="arrow-links-wrap">
+        <a href="#" class="arrow-left-link prev">
+            <span></span>
+            <span></span>
+        </a>
+        <a href="#" class="arrow-right-link next">
+            <span></span>
+            <span></span>
+        </a>
+    </div>
+    <?php endif; ?>
+</div>

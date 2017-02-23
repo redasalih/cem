@@ -1,0 +1,264 @@
+<?php
+// Layout
+$LayoutModel = GummRegistry::get('Model', 'Layout');
+$LayoutHelper = GummRegistry::get('Helper', 'Layout');
+
+$contentWidth       = $LayoutHelper->getContentWidth(false);
+$colorOption        = $this->Wp->getOption('styles.color_options.color_option_1');
+$stylesStructure    = $this->Html->getStylesStructureForLayout();
+?>
+<a href="#" id="demo-panel-button"><i class="fa fa-cogs"></i></a>
+
+<div id="demo-panel" class="demo-panel">
+  <span class="bb-demo-label">Background</span>
+  <div class="switch-toggle well">
+    <input id="light" name="view" type="radio" checked>
+    <label for="light" onclick="">light</label>
+
+    <input id="dark" name="view" type="radio">
+    <label for="dark" onclick="">dark</label>
+
+    <a class="btn btn-primary"></a>
+  </div>
+  <span class="bb-demo-label">Width</span>
+  <div class="bb-slider-input bb-demo-width-slider"
+        data-gumm-slider-value="<?php echo $contentWidth; ?>" 
+        data-gumm-resize-target=".content-wrap, .top-banner-area, .footer-sticky-player .player-wrap, .content-wrap footer">
+      
+    <!-- <a href="#" style="left:30px;"></a> -->
+  </div>
+
+  <span class="bb-demo-label">Color</span>
+  <div class="bb-color-option-container bb-demo-colorpicker" data-value="<?php echo $colorOption; ?>" style="background-color:#<?php echo $colorOption; ?>;">
+    <span><i class="icon-tint"></i></span>
+  </div>
+
+  <a href="#" class="close-link"></a>
+</div>
+
+<?php wp_enqueue_script('jquery-ui-slider'); ?>
+
+<script type="text/javascript">
+
+(function($){
+
+$(document).ready(function(){
+    $('#demo-panel').gummFrontEndDemoPanel();
+});
+    
+$.gummFrontEndDemoPanel = function(options, callback, element) {
+    this.element = $(element);
+    this.__construct(options, callback);
+}
+
+$.gummFrontEndDemoPanel.prototype = {
+    styleStruct: <?php echo json_encode($stylesStructure); ?>,
+    styleSheetElements: {},
+    styleSheetElementsTimeOuts: {},
+    styleSheetElementTitle: 'gumm-preview-stylesheet-helper',
+    styleSheetElement: null,
+    __construct:function(element, options) {
+        this.widthSlider = this.element.children('.bb-demo-width-slider');
+        this.colorPicker = this.element.children('.bb-demo-colorpicker');
+        
+        $('body').append('<style title="' + this.styleSheetElementTitle + '"></style>');
+        for (var i=document.styleSheets.length-1; i>=0; i--) {
+            if (document.styleSheets[i].title == this.styleSheetElementTitle) {
+                this.styleSheetElement = document.styleSheets[i];
+                break;
+            }
+        }
+        this.styleSheetElements.color_option_1 = document.styleSheets[document.styleSheets.length-1];
+        
+        this.initLayoutSlider(this.widthSlider);
+        this.initColorPicker(this.colorPicker, 'color_option_1');
+    },
+    initLayoutSlider: function(element) {
+	    var _self = this;
+	    var max = $(window).width(),
+	        val = $(element).data('gumm-slider-value');
+	        
+	    if (val === 'full') val = max;
+	    
+        $(element).slider({
+            min: 940,
+            max: max,
+            step: 10,
+            value: val,
+            create: function(event, ui) {
+                this.gummResizeTarget = $($(this).data('gumm-resize-target'));
+            },
+            slide: function(event, ui) {
+                var resizeValue = ui.value;
+                if ($(this).slider('option', 'max') == resizeValue) resizeValue = '100%';
+
+                this.gummResizeTarget.css({
+                    width: resizeValue,
+                    maxWidth: resizeValue
+                });
+                $(window).trigger('resize');
+            },
+            change: function(event, ui) {
+                var resizeValue = ui.value;
+                if ($(this).slider('option', 'max') == resizeValue) resizeValue = '100%';
+                
+                this.gummResizeTarget.css({
+                    width: resizeValue,
+                    maxWidth: resizeValue
+                });
+                $(window).trigger('resize');
+            }
+        });
+    },
+    initColorPicker: function(element, styleName) {
+        var _self = this;
+        $(element).ColorPicker({
+            onBeforeShow: function () {
+                $(this).ColorPickerSetColor($(this).data('value'));
+            },
+            onShow: function (colpkr) {
+                var $this = $(this);
+                if ($(colpkr).is(':visible')) {
+                    $this.ColorPickerHide();
+                    return false;
+                } else if ($(colpkr).data('gummPositionSet') === undefined) {
+                    // $(colpkr).css({
+                    //     position: 'fixed',
+                    //     left: $this.offset().left - 350,
+                    //     top: $this.offset().top - $(document).scrollTop() - 127
+                    // });
+                }
+            },
+            onHide: function (colpkr) {
+            },
+            onChange: function (hsb, hex, rgb) {
+                var rgbString = rgb.r + ', ' + rgb.g + ', ' + rgb.b;
+                _self.changeColorsForStyleName(styleName, rgbString, true);
+            },
+            onSubmit: function(hsb, hex, rgb, el) {
+                $(el).ColorPickerHide();
+                var rgbString = rgb.r + ', ' + rgb.g + ', ' + rgb.b;
+                _self.changeColorsForStyleName(styleName, rgbString, true);
+            }
+        });
+    },
+    changeColorsForStyleName: function(styleName, colorValue, reset) {
+        var _self = this;
+        if (this.styleStruct[styleName] === undefined) return false;
+        if (!this.styleStruct[styleName]) return false;
+        if (!colorValue) return false;
+        var hexColorValue = _self.RGBToHex('rgb(' + colorValue + ')');
+
+        this.colorPicker.css({
+            backgroundColor: '#' + hexColorValue
+        }).data('value', hexColorValue);
+        
+        var _stylePseudoString = '';
+        var _styleStatesString = '';
+
+        $.each(this.styleStruct[styleName], function(declaration, props){
+            var cssProps = {};
+            var cssPropsString = '';
+            
+            if ($.browser.mozilla !== true && declaration === '::-moz-selection') return;
+            
+            $.each(props, function(propName, propData){
+                var _cssProp = 'rgb(' + colorValue + ')';
+                if (propData.alpha !== false) {
+                    _cssProp = 'rgba(' + colorValue + ', ' + propData.alpha + ')';
+                }
+                if (propData.declaration !== false) {
+                    _cssProp = propData.declaration.replace('%s', _cssProp);
+                }
+                if (propData.important !== false) {
+                    _cssProp += ' !important';
+                }
+                cssProps[propName] = _cssProp;
+                cssPropsString += propName + ':' + _cssProp + ';';
+            });
+            
+            if (typeof _self.styleSheetElements[styleName].addRule === 'function') {
+                _self.styleSheetElements[styleName].addRule(declaration, cssPropsString);
+            } else if (typeof _self.styleSheetElements[styleName].insertRule === 'function'){
+                try {
+                    _self.styleSheetElements[styleName].insertRule(declaration + '{' +  cssPropsString + '}', _self.styleSheetElements[styleName].cssRules.length);
+                } catch(err){}
+            }
+        });
+    },
+	RGBToHex: function (rgb) {
+	    if (typeof(rgb) === 'string') {
+            rgb = this.RGBFromString(rgb);
+	    }
+	    
+		var hex = [
+			rgb.r.toString(16),
+			rgb.g.toString(16),
+			rgb.b.toString(16)
+		];
+		
+		$.each(hex, function (nr, val) {
+			if (val.length == 1) {
+				hex[nr] = '0' + val;
+			}
+		});
+		return hex.join('');
+	},
+    RGBFromString: function (rgbString) {
+        var rgb = {
+            r: 0,
+            g: 0,
+            b: 0
+        }
+        var parts = rgbString.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        if (parts.length > 0) {
+            rgb.r = parts[1];
+            rgb.g = parts[2];
+            rgb.b = parts[3];
+        }
+        
+        return this.fixRGB(rgb);
+    },
+	fixRGB: function (rgb) {
+		return {
+			r: Math.min(255, Math.max(0, rgb.r)),
+			g: Math.min(255, Math.max(0, rgb.g)),
+			b: Math.min(255, Math.max(0, rgb.b))
+		};
+	},
+	fixHex: function (hex) {
+		var len = 6 - hex.length;
+		if (len > 0) {
+			var o = [];
+			for (var i=0; i<len; i++) {
+				o.push('0');
+			}
+			o.push(hex);
+			hex = o.join('');
+		}
+		return hex;
+	}
+}
+        
+$.fn.gummFrontEndDemoPanel = function gummFrontEndDemoPanelFn(options, callback) {
+    this.each(function () {
+        var instance = $.data(this, 'gummFrontEndDemoPanel');
+        if (instance) {
+            // update options of current instance
+            // instance.update(options);
+        } else {
+            $.data(this, 'gummFrontEndDemoPanel', new $.gummFrontEndDemoPanel(options, callback, this));
+        }
+        
+    });
+    return this;
+}
+})( jQuery );
+</script>
+
+
+<?php
+echo $this->Html->css('front-end-demo-panel.css');
+echo $this->Js->script('colorpicker/js/colorpicker.js');
+echo $this->Html->css(GUMM_THEME_JS_URL . 'colorpicker/css/colorpicker.css');
+?>

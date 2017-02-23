@@ -1,0 +1,19 @@
+<?php
+if (!$attachmentPosts) return;
+if (!isset($uploadsLayout)) {
+    $uploadsLayout = 'default';
+}
+
+$mediaElement = 'media/admin_add';
+switch ($uploadsLayout) {
+ case 'audio':
+    $mediaElement = 'media/admin_add_audio';
+    break;
+}
+foreach ($attachmentPosts as $attachmentPost) {
+    echo $this->element($mediaElement, array(
+        'optionId' => $optionId,
+        'attachmentPost' => $attachmentPost,
+    ));
+}
+?>

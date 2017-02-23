@@ -1,0 +1,47 @@
+<div class="bluebox-admin">
+<?php
+$leftSidebar = $layoutSidebars['left'];
+$rightSidebar = $layoutSidebars['right'];
+
+$PageBuilderHelper = GummRegistry::get('Helper', 'PageBuilder');
+$editorHtml = $PageBuilderHelper->editor(array(
+    'leftSidebar' => $layoutSidebars['left'],
+    'rightSidebar' => $layoutSidebars['right'],
+    'layoutSchema' => $layoutSchema,
+    'elementsEnabled' => $elementsEnabled,
+    'elementsAvailable' => $elementsAvailable,
+    'schemaInputsContainerSelector' => '#' . $schemaInputsContainerSelector,
+    'builderAttributes' => array(
+        // 'id' => Inflector::slug($optionId),
+    ),
+    'editorMode' => $mode,
+    'model' => $model,
+    'optionId' => $templateId,
+    'postId' => ($post) ? $post->ID : null,
+    'metaKey' => ($model === 'Option') ? $this->constructOptionId('layoutComponents', $templateId) : null,
+));
+
+if ($post && $post->post_type !== 'page') {
+	echo $this->Form->input('GummPostMeta', array(
+		'id' => GUMM_THEME_PREFIX . '_postmeta.page_builder_settings',
+		'type' => 'tabbed-input',
+		'default' => 'global',
+		'inputOptions' => array(
+            'global' => __('Global', 'gummfw'),
+            'custom' => __('Custom', 'gummfw'),
+		),
+		'tabs' => array(
+	        'global' => array(
+	            'text' => __('Global Settings From Theme Options will be used.', 'gummfw'),
+	        ),
+			'custom' => $editorHtml,
+		),
+	));
+	
+	echo '<div style="clear:both;margin-bottom:20px;"></div>';
+} else {
+	echo $editorHtml;
+}
+
+?>
+</div>

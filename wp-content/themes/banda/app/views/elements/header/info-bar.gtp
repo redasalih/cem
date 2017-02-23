@@ -1,0 +1,89 @@
+<?php
+$post = GummRegistry::get('Model', 'Post')->getQueriedObject();
+$backgroundMedia    = array();
+$mediaPlaylist      = array();
+
+if (is_a($post, 'WP_Post') && isset($post->PostMeta['header_settings']) && $post->PostMeta['header_settings'] === 'custom') {
+    $displayBackgroundPlayer    = $post->PostMeta['header_info_display_bg_player'];
+    $shouldRender               = $post->PostMeta['header_info_display'];
+    if ($post->PostMeta['background_player_settings'] === 'custom') {
+        $backgroundMedia = $post->PostMeta['background_player'];
+        $playerAutoplay  = $post->PostMeta['background_player_autoplay'];
+        if (isset($post->PostMeta['background_player_full_screen'])) {
+            $playerFullScreen = $post->PostMeta['background_player_full_screen'];
+        }
+    }
+} else {
+    $displayBackgroundPlayer    = $this->Wp->getOption('header_info_display_bg_player', array('booleanize' => true));
+    $shouldRender               = $this->Wp->getOption('header_info_display', array('booleanize' => true));
+}
+
+if ($displayBackgroundPlayer && !$backgroundMedia) {
+    $backgroundMedia = $this->Wp->getOption('background_player');
+}
+if ($displayBackgroundPlayer && !isset($playerAutoplay)) {
+    $playerAutoplay = (float) $this->Wp->getOption('background_player_autoplay');
+}
+if ($displayBackgroundPlayer && !isset($playerFullScreen)) {
+    $playerFullScreen = $this->Wp->getOption('background_player_full_screen') === 'true';
+}
+if (!$backgroundMedia) {
+    $displayBackgroundPlayer = false;
+} else {
+    $backgroundMedia = GummRegistry::get('Model', 'Post')->findAttachmentPosts($backgroundMedia);
+    $mediaPlaylist = Set::classicExtract(Set::reverse($backgroundMedia), '{n}.guid');
+}
+
+    
+$infoText = array_merge(array(
+    'center' => '',
+    'left' => '',
+    'right' => '',
+), (array) $this->Wp->getOption('header_info'));
+if ($shouldRender && !Set::filter($infoText) && !$displayBackgroundPlayer) {
+    $shouldRender = false;
+}
+
+$shouldRender = apply_filters('gumm_header_info_bar_should_render', $shouldRender);
+?>
+
+<?php if ($shouldRender): ?>
+    <header class="top-bar">
+      <div class="full-width-info left"><?php echo $infoText['left']; ?></div>
+      <div class="full-width-info right"><?php echo $infoText['right']; ?></div>
+      <div class="center-info">
+        <div class="center-info-content">
+            <?php echo $infoText['center']; ?>
+        </div>
+        <?php if ($displayBackgroundPlayer): ?>
+            <?php
+            $divPlayerAtts = array(
+                'class' => 'bg-player bluebox-bg-player',
+                'data-playlist' => implode(',', $mediaPlaylist),
+                'data-autoplay' => $playerAutoplay ? 'true' : 'false',
+                'data-slideshow-speed' => $playerAutoplay ? (float) $playerAutoplay * 1000 : 0,
+                'data-full-screen' => $playerFullScreen ? 'true' : 'false',
+            );
+            ?>
+            <div<?php echo $this->Html->_constructTagAttributes($divPlayerAtts); ?>>
+              <a class="player-button forward" href="#">
+    	          <span><i class="icon-forward"></i></span>
+    	          <span><i class="icon-forward"></i></span>
+              </a>
+              <a class="player-button play" href="#">
+    	          <span><i class="icon-play"></i></span>
+    	          <span><i class="icon-play"></i></span>
+              </a>
+              <a class="player-button backward" href="#">
+    	          <span><i class="icon-backward"></i></span>
+    	          <span><i class="icon-backward"></i></span>
+              </a>
+              <a class="player-button volume" href="#" style="display:none;">
+    	          <span><i class="icon-volume-up"></i></span>
+    	          <span><i class="icon-volume-up"></i></span>
+              </a>
+            </div>
+        <?php endif; ?>
+      </div>
+    </header>
+<?php endif; ?>

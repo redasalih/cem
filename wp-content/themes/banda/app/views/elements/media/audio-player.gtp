@@ -1,0 +1,27 @@
+<?php
+if (!isset($title) || !isset($src)) {
+    return;
+}
+$mode = isset($mode) ? $mode : 'toggle';
+
+$divPlayerAtts = array(
+    'class'                         => 'gumm-audio-player',
+    'data-play-pause-button-mode'   => $mode,
+    'data-src'                      => $src,
+);
+?>
+
+<div<?php echo $this->Html->_constructTagAttributes($divPlayerAtts); ?>>
+    <div class="details">
+        <h4><?php echo $title; ?></h4>
+        <div class="track-progress-bar">
+            <a href="#" class="track-progress">
+                <span style="width:0%"></span>
+            </a>
+        </div>
+    </div>
+    <a class="button button-play" href="#">
+        <span><i class="icon-play"></i></span>
+        <span><i class="icon-play"></i></span>
+    </a>
+</div>

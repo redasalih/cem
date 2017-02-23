@@ -1,0 +1,143 @@
+<?php
+if (!isset($networks)) $networks = $this->Wp->getOption('social_networks_enabled');
+$networks = Set::filter(Set::booleanize($networks));
+if (!$networks) return '';
+if (!isset($additionalClass)) $additionalClass = '';
+else $additionalClass = ' ' . $additionalClass;
+
+$socialData = (array) $this->Wp->getOption('social');
+$socialData = Set::merge(array(
+    'target_blank' => 'true',
+    'mode' => 'share',
+    'twitter' => array(
+        'username' => '',
+    ),
+    'fb' => array(
+        'url' => '',
+    ),
+    'googleplus' => array(
+        'url' => '',
+    ),
+    'pinterest' => array(
+        'url' => '',
+    ),
+    'youtube' => array(
+        'url' => '',
+    ),
+    'linkedin' => array(
+        'url' => '',
+    ),
+    'instagram' => array(
+        'url' => '',
+    ),
+    'rss' => array(
+        'url' => get_bloginfo('rss_url'),
+    ),
+), $socialData);
+
+if (isset($accountMode)) {
+    $socialData['mode'] = $accountMode;
+}
+
+if (!isset($targetAttribute)) {
+    $targetAttribute = $this->Wp->getOption('social.target_blank');
+}
+$permalink = get_permalink();
+$title = the_title('', '', false);
+
+$fbLink         = 'http://www.facebook.com/sharer.php?u=' . $permalink . '&amp;t=' . $title;
+$twitterLink    = 'http://twitthis.com/twit?url=' . $permalink;
+$linkedInLink   = 'http://linkedin.com/shareArticle?mini=true&amp;url=' . $permalink . '&amp;title=' . $title;
+$pinterestLink  = 'http://pinterest.com/pin/create/button?url=' . $permalink . '&amp;title=' . $title;
+$googlePlusLink = 'http://google.com/bookmarks/mark?op=edit&amp;bkmk=' . $permalink . '&amp;title=' . $title;
+$instagramLink  = 'http://google.com/bookmarks/mark?op=edit&amp;bkmk=' . $permalink . '&amp;title=' . $title;
+$youtubeLink    = $this->Html->url($socialData['youtube']['url']);
+$instagramLink  = $this->Html->url($socialData['instagram']['url']);
+
+if ($socialData['mode'] === 'account') {
+    $fbLink         = $this->Html->url($socialData['fb']['url']);
+    $twitterLink    = $this->Html->url('twitter.com/' . str_replace('@', '', $socialData['twitter']['username']));
+    $linkedInLink   = $this->Html->url($socialData['linkedin']['url']);
+    $pinterestLink  = $this->Html->url($socialData['pinterest']['url']);
+    $googlePlusLink = $this->Html->url($socialData['googleplus']['url']);
+}
+$networksAvailable = array(
+    'facebook' => array(
+        'href' => $fbLink,
+        'class' => ' ' . $additionalClass,
+        'iconClass' => 'icon-facebook',
+        'data-original-title' => __('Facebook', 'gummfw'),
+        'target' => $targetAttribute === 'true' ? '_blank' : null,
+    ),
+    'twitter' => array(
+        'href' => $twitterLink,
+        'class' => ' ' . $additionalClass,
+        'iconClass' => 'icon-twitter',
+        'data-original-title' => __('Twitter', 'gummfw'),
+        'target' => $targetAttribute === 'true' ? '_blank' : null,
+    ),
+    'linkedin' => array(
+        'href' => $linkedInLink,
+        'class' => ' ' . $additionalClass,
+        'iconClass' => 'icon-linkedin',
+        'data-original-title' => __('LinkedIn', 'gummfw'),
+        'target' => $targetAttribute === 'true' ? '_blank' : null,
+    ),
+    'pinterest' => array(
+        'href' => $pinterestLink,
+        'class' => ' ' . $additionalClass,
+        'iconClass' => 'icon-pinterest',
+        'data-original-title' => __('Pinterest', 'gummfw'),
+        'target' => $targetAttribute === 'true' ? '_blank' : null,
+    ),
+    'googleplus' => array(
+        'href' => $googlePlusLink,
+        'class' => ' ' . $additionalClass,
+        'iconClass' => 'icon-google-plus',
+        'data-original-title' => __('Google +', 'gummfw'),
+        'target' => $targetAttribute === 'true' ? '_blank' : null,
+    ),
+    'youtube' => array(
+        'href' => $youtubeLink,
+        'class' => ' ' . $additionalClass,
+        'iconClass' => 'icon-youtube-play',
+        'data-original-title' => __('YouTube', 'gummfw'),
+        'target' => $targetAttribute === 'true' ? '_blank' : null,
+    ),
+    'instagram' => array(
+        'href' => $instagramLink,
+        'class' => ' ' . $additionalClass,
+        'iconClass' => 'icon-instagram',
+        'data-original-title' => __('Instagram', 'gummfw'),
+        'target' => $targetAttribute === 'true' ? '_blank' : null,
+    ),
+    'rss' => array(
+        'href' => $socialData['rss']['url'],
+        'class' => ' ' . $additionalClass,
+        'iconClass' => 'icon-rss',
+        'data-original-title' => __('RSS', 'gummfw'),
+        'target' => $targetAttribute === 'true' ? '_blank' : null,
+    ),
+);
+
+$networksEnabled = array_intersect_key($networksAvailable, $networks);
+if ($networksEnabled):
+?>
+<div class="social-widget">
+    <ul>
+        <?php
+            foreach ($networksEnabled as $networkAttributes) {
+                $iconClass = $networkAttributes['iconClass'];
+                unset($networkAttributes['iconClass']);
+                echo '<li>';
+                echo '<a' . $this->Html->_constructTagAttributes($networkAttributes) . '>';
+                    echo '<span><i class="' . $iconClass . '"></i></span>';
+                    echo '<span><i class="' . $iconClass . '"></i></span>';
+                echo '</a>';
+                echo '</li>';
+
+            }
+        ?>
+    </ul>
+</div>
+<?php endif; ?>

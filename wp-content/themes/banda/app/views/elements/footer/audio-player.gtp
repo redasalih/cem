@@ -1,0 +1,129 @@
+<?php if ($footerMediaIds = $this->Wp->getOption('footer_audio_player')): ?>
+    <?php
+    $media = GummRegistry::get('Model', 'Post')->findAttachmentPosts($footerMediaIds);
+    
+    $audioPlaylist  = array();
+    foreach ($media as $mediaItem) {
+        $thumbnailUrl = null;
+        $thumbnailIds = $this->Wp->getPostMeta($mediaItem->ID, 'postmeta.thumbnail');
+        if ($thumbnailIds) {
+            if ($thumbnailItems = GummRegistry::get('Model', 'Post')->findAttachmentPosts($thumbnailIds[0])) {
+                $thumbnailUrl = $this->Media->url($thumbnailItems[0]->guid, array('width' => 100, 'height' => 100, 'exact' => true));
+            }
+        }
+        $audioPlaylist[] = array(
+            'item' => $mediaItem,
+            'img' => $thumbnailUrl,
+        );
+    }
+    
+    if (!$audioPlaylist) {
+        return '';
+    }
+    
+    $firstItem = reset($audioPlaylist);
+    
+    $divPlayerAtts = array(
+        'class' => 'gumm-audio-player',
+        'data-src' => $firstItem['item']->guid . '?fap',
+        'data-play-pause-button-mode' => 'toggle',
+        'data-playlist-container' => '.gumm-audio-player-playilst',
+        'data-append-to' => 'body',
+        'data-autoplay' => $this->Wp->getOption('footer_audio_player_autoplay'),
+		'data-autoplaynext' => $this->Wp->getOption('footer_audio_player_autoplaynext')
+    );
+
+	if ($this->Wp->getOption('footer_audio_player_visible') !== 'true') {
+		$divPlayerAtts['class'] .= ' inactive';
+	} else {
+		$divPlayerAtts['class'] .= ' active';
+	}
+    ?>
+    <?php
+    // d($audioPlaylist);
+    ?>
+<div<?php echo $this->Html->_constructTagAttributes($divPlayerAtts); ?>>
+    <div class="footer-sticky-player">
+        <div class="player-wrap">
+            <div class="track-image">
+                <?php if ($firstItem['img']): ?>
+                <img src="<?php echo $firstItem['img']; ?>">
+                <?php endif; ?>
+                <i class="icon-music"></i>
+            </div>
+        
+            <div class="description">
+                <h4><?php echo get_the_title($firstItem['item']->ID); ?></h4>
+                <span class="track-details"><?php echo $this->Wp->getPostMeta($firstItem['item']->ID, 'postmeta.label'); ?></span>
+                <span class="track-date">
+                <?php
+                if ($trackDate = $this->Wp->getPostMeta($firstItem['item']->ID, 'postmeta.date')) {
+                    echo date_i18n(get_option('date_format'), strtotime($trackDate));
+                }
+                ?>
+                </span>
+            </div>
+
+            <div class="buttons">
+                <div class="buttons-wrap">
+                    <a class="player-button backward" href="#">
+                        <span><i class="icon-backward"></i></span>
+                        <span><i class="icon-backward"></i></span>
+                    </a>
+                    <a class="player-button button-play" href="#">
+                        <span><i class="icon-play"></i></span>
+                        <span><i class="icon-play"></i></span>
+                    </a>
+                    <a class="player-button forward" href="#">
+                        <span><i class="icon-forward"></i></span>
+                        <span><i class="icon-forward"></i></span>
+                    </a>
+                </div>
+                <a href="#" class="track-progress">
+                    <span style="width:0%;"></span>
+                </a>
+                <div class="volume">
+                    <a href="#" class="volume-link button-mute">
+                        <span><i class="icon-volume-up"></i></span>
+                        <span><i class="icon-volume-up"></i></span>
+                    </a>
+                    <a href="#" class="volume-link button-unmute">
+                        <span><i class="icon-volume-off"></i></span>
+                        <span><i class="icon-volume-off"></i></span>
+                    </a>
+                    <a href="#" class="volume-bar">
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+            <div class="gumm-audio-player-playilst" style="display:none;">
+                <?php
+                foreach ($audioPlaylist as $playlistItem) {
+                    $playlistItemDivAtts = array(
+                        'data-src' => $playlistItem['item']->guid . '?fap',
+                        'data-img-src' => $playlistItem['img'],
+                    );
+                    echo '<div' . $this->Html->_constructTagAttributes($playlistItemDivAtts) . '>';
+                        echo '<div class="description">';
+                            echo '<h4>' . get_the_title($playlistItem['item']->ID) . '</h4>';
+                            echo '<span class="track-details">' . $this->Wp->getPostMeta($playlistItem['item']->ID, 'postmeta.label') . '</span>';
+                            echo '<span class="track-date">';
+                            if ($trackDate = $this->Wp->getPostMeta($playlistItem['item']->ID, 'postmeta.date')) {
+                                echo date_i18n(get_option('date_format'), strtotime($trackDate));
+                            }
+                            echo '</span>';
+                        echo '</div>';
+                    echo '</div>';
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+    <span class="sticky-button-wrap">
+        <a href="#" class="button-close-player">
+            <span><i class="icon-remove"></i></span>
+            <span><i class="icon-remove"></i></span>
+        </a>
+    </span>
+</div>
+<?php endif; ?>

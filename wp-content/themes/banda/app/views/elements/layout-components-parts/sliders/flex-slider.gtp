@@ -1,0 +1,80 @@
+<?php
+// Default params setup
+if (!isset($animation)) $animation = 'slide';
+$controlNav = (isset($controlNav)) ? (int) $controlNav : 1;
+$directionNav = (isset($directionNav)) ? (int) $directionNav : 1;
+$animationLoop = (isset($animationLoop)) ? (int) $animationLoop : 1;
+$animationSpeed = (isset($animationSpeed)) ? (int) $animationSpeed : 600;
+$slideShow = (isset($slideShow)) ? (int) $slideShow : 1;
+$slideShowSpeed = (isset($slideShowSpeed)) ? (int) $slideShowSpeed : 0;
+if (!$slideShowSpeed) $slideShow = 0;
+$smoothHeight = (isset($smoothHeight)) ? (int) $smoothHeight : 1;
+if (!isset($rel)) $rel = false;
+?>
+<div class="bb-slider-2">
+    <div class="flex-slider loading"
+        data-animation="<?php echo $animation; ?>"
+        data-animation-speed="<?php echo $animationSpeed; ?>"
+        data-control-nav="0"
+        data-control-nav-container="<?php echo ($controlNav) ? '#' . $elementId .'-nav-bullet-controls' : 0; ?>"
+        data-direction-nav="0"
+        data-direction-nav-container="<?php echo ($directionNav) ? '#' . $elementId .'-nav-controls' : 0; ?>"
+        data-animation-loop="<?php echo (int) $animationLoop; ?>" 
+        data-slideshow="<?php echo (int) $slideShow; ?>"
+        data-slideshow-speed="<?php echo (int) $slideShowSpeed; ?>"
+        data-smooth-height="<?php echo (int) $smoothHeight; ?>">
+        
+        <div class="slides">
+            <?php
+            $counter = 0;
+            ?>
+            <?php foreach ($media as $mediaItem): ?>
+                <?php
+                $attributes = array(
+                    'class' => 'slide-item',
+                    'style' => $counter > 0 ? 'display:none' : null,
+                );
+                ?>
+                <div<?php echo $this->Html->_constructTagAttributes($attributes); ?>>
+                    <?php
+                    echo $this->Media->display($mediaItem->guid, $dimensions, array(
+                        'alt' => $mediaItem->post_title,
+                    ));
+                    ?>
+                </div>
+                <?php $counter++; ?>
+            <?php endforeach; ?>
+    	</div>
+	</div>
+	
+    <?php if ($controlNav): ?>
+    <div class="bullets-wrap">
+        <ul id="<?php echo $elementId .'-nav-bullet-controls'; ?>" class="slider-control-nav">
+            <?php
+            $counter = 0;
+            foreach ($media as $mediaItem) {
+                $liAtts = array();
+                if ($counter === 0) {
+                    $liAtts['class'] = 'current';
+                }
+                echo '<li' . $this->Html->_constructTagAttributes($liAtts) . '><a href="#"></a></li>';
+                $counter++;
+            }
+            ?>
+        </ul>
+    </div>
+    <?php endif; ?>
+    <?php if ($directionNav): ?>
+    <div id="<?php echo $elementId; ?>-nav-controls" class="arrow-links-wrap">
+        <a href="#" class="arrow-left-link prev">
+            <span></span>
+            <span></span>
+        </a>
+        <a href="#" class="arrow-right-link next">
+            <span></span>
+            <span></span>
+        </a>
+    </div>
+    <?php endif; ?>
+    
+</div>

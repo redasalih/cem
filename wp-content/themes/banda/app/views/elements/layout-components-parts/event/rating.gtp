@@ -1,0 +1,15 @@
+<?php
+$rating = (isset($rating)) ? (int) $rating : 0;
+$maxRating = 5;
+?>
+<ul class="rating">
+    <?php
+    for ($i=1; $i <= $maxRating; $i++) {
+        if ($i <= $rating) {
+            echo '<li class="fill"></li>';
+        } else {
+            echo '<li></li>';
+        }
+    }
+    ?>
+</ul>
